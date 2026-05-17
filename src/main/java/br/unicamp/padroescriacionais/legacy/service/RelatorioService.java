@@ -8,7 +8,6 @@ import br.unicamp.padroescriacionais.legacy.domain.FormatoRelatorio;
 import br.unicamp.padroescriacionais.legacy.domain.Relatorio;
 import br.unicamp.padroescriacionais.legacy.domain.TipoRelatorio;
 import br.unicamp.padroescriacionais.legacy.generator.RelatorioGenerator;
-import br.unicamp.padroescriacionais.legacy.generator.factory.GeneratorFormat;
 import br.unicamp.padroescriacionais.legacy.generator.factory.RelatorioGeneratorFactory;
 
 public class RelatorioService {
@@ -58,7 +57,7 @@ public class RelatorioService {
             System.out.println("[DEBUG-RelatorioService] Gerando: " + tipo + " -> " + formato);
         }
 
-        RelatorioGeneratorFactory factory = GeneratorFormat.getFactory(formato);
+        RelatorioGeneratorFactory factory = formato.getFactory();
         RelatorioGenerator generator = factory.criarGenerator();
         return generator.gerar(relatorio);
     }

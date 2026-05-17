@@ -5,7 +5,6 @@ import br.unicamp.padroescriacionais.legacy.domain.ConfiguracaoSistema;
 import br.unicamp.padroescriacionais.legacy.domain.FormatoRelatorio;
 import br.unicamp.padroescriacionais.legacy.domain.Relatorio;
 import br.unicamp.padroescriacionais.legacy.generator.RelatorioGenerator;
-import br.unicamp.padroescriacionais.legacy.generator.factory.GeneratorFormat;
 import br.unicamp.padroescriacionais.legacy.generator.factory.RelatorioGeneratorFactory;
 
 public class ExportacaoService {
@@ -25,7 +24,7 @@ public class ExportacaoService {
     }
     
     public void exportar(Relatorio relatorio, FormatoRelatorio formato) {
-        RelatorioGeneratorFactory factory = GeneratorFormat.getFactory(formato);
+        RelatorioGeneratorFactory factory = formato.getFactory();
         RelatorioGenerator generator = factory.criarGenerator();
         String conteudoFormatado = generator.gerar(relatorio);
 
