@@ -1,18 +1,20 @@
 package br.unicamp.padroescriacionais.legacy;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import br.unicamp.padroescriacionais.legacy.domain.FormatoRelatorio;
 import br.unicamp.padroescriacionais.legacy.domain.Relatorio;
 import br.unicamp.padroescriacionais.legacy.domain.TipoRelatorio;
 import br.unicamp.padroescriacionais.legacy.service.ExportacaoService;
 import br.unicamp.padroescriacionais.legacy.service.RelatorioService;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ExportacaoServiceTest {
 
@@ -51,6 +53,18 @@ class ExportacaoServiceTest {
     void deveExportarRelatorioEmJsonSemErro() {
         Relatorio relatorio = relatorioService.criarRelatorio(TipoRelatorio.CLIENTES);
         assertDoesNotThrow(() -> exportacaoService.exportar(relatorio, FormatoRelatorio.JSON));
+    }
+
+    @Test
+    void deveExportarRelatorioEmHtmlSemErro() {
+        Relatorio relatorio = relatorioService.criarRelatorio(TipoRelatorio.CLIENTES);
+        assertDoesNotThrow(() -> exportacaoService.exportar(relatorio, FormatoRelatorio.HTML));
+    }
+
+    @Test
+    void deveExportarRelatorioEmXmlSemErro() {
+        Relatorio relatorio = relatorioService.criarRelatorio(TipoRelatorio.ESTOQUE);
+        assertDoesNotThrow(() -> exportacaoService.exportar(relatorio, FormatoRelatorio.XML));
     }
 
     @Test

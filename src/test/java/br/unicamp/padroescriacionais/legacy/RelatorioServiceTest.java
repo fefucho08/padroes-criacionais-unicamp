@@ -1,13 +1,16 @@
 package br.unicamp.padroescriacionais.legacy;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import br.unicamp.padroescriacionais.legacy.domain.FormatoRelatorio;
 import br.unicamp.padroescriacionais.legacy.domain.Relatorio;
 import br.unicamp.padroescriacionais.legacy.domain.TipoRelatorio;
 import br.unicamp.padroescriacionais.legacy.service.RelatorioService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class RelatorioServiceTest {
 
@@ -85,6 +88,25 @@ class RelatorioServiceTest {
         assertFalse(resultado.isBlank());
         assertTrue(resultado.contains("{"), "Saida JSON deve conter '{'");
         assertTrue(resultado.contains("}"), "Saida JSON deve conter '}'");
+    }
+
+    @Test
+    void deveGerarConteudoHtmlComTags() {
+        String resultado = service.gerarRelatorio(TipoRelatorio.CLIENTES, FormatoRelatorio.HTML);
+
+        assertNotNull(resultado);
+        assertFalse(resultado.isBlank());
+        assertTrue(resultado.contains("<"), "Saida HTML deve conter '<'");
+        assertTrue(resultado.contains(">"), "Saida HTML deve conter '>'");
+    }
+
+    @Test
+    void deveGerarConteudoXmlComData() {
+        String resultado = service.gerarRelatorio(TipoRelatorio.CLIENTES, FormatoRelatorio.XML);
+
+        assertNotNull(resultado);
+        assertFalse(resultado.isBlank());
+        assertTrue(resultado.contains("CDATA"), "Saida XML deve conter 'CDATA'");
     }
 
     @Test
