@@ -2,6 +2,7 @@ package br.unicamp.padroescriacionais.legacy.service;
 
 import java.time.LocalDateTime;
 
+import br.unicamp.padroescriacionais.legacy.domain.ConfiguracaoGlobal;
 import br.unicamp.padroescriacionais.legacy.domain.ConfiguracaoSistema;
 import br.unicamp.padroescriacionais.legacy.domain.FormatoRelatorio;
 import br.unicamp.padroescriacionais.legacy.domain.Relatorio;
@@ -12,13 +13,20 @@ import br.unicamp.padroescriacionais.legacy.generator.factory.RelatorioGenerator
 
 public class RelatorioService {
 
-    private ConfiguracaoSistema configuracao = new ConfiguracaoSistema(
-            "Empresa XPTO",
-            "DEV",
-            "/tmp/relatorios",
-            false
-    );
-
+    private ConfiguracaoSistema configuracao;
+    
+    public RelatorioService() {
+    	ConfiguracaoSistema configuracaoLocal = new ConfiguracaoSistema(
+    			"Empresa XPTO",
+    			"DEV",
+    			"/tmp/relatorios",
+    			false
+    			);
+    	
+    	ConfiguracaoGlobal.getInstancia().setConfiguracao(configuracaoLocal);
+    	this.configuracao = ConfiguracaoGlobal.getInstancia().getConfiguracao();
+    }
+    
     public Relatorio criarRelatorio(TipoRelatorio tipo) {
         String titulo;
         String conteudo;

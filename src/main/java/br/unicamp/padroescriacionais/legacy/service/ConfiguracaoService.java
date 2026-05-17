@@ -1,16 +1,24 @@
 package br.unicamp.padroescriacionais.legacy.service;
 
+import br.unicamp.padroescriacionais.legacy.domain.ConfiguracaoGlobal;
 import br.unicamp.padroescriacionais.legacy.domain.ConfiguracaoSistema;
 
 public class ConfiguracaoService {
 
-    private ConfiguracaoSistema configuracao = new ConfiguracaoSistema(
-            "Empresa XPTO Ltda.",
-            "DEV",
-            "/tmp/relatorios",
-            true
-    );
-
+    private ConfiguracaoSistema configuracao;
+    
+    public ConfiguracaoService() {
+    	ConfiguracaoSistema configuracaoLocal = new ConfiguracaoSistema(
+    			"Empresa XPTO Ltda.",
+                "DEV",
+                "/tmp/relatorios",
+                true
+    			);
+    	
+    	ConfiguracaoGlobal.getInstancia().setConfiguracao(configuracaoLocal);
+    	this.configuracao = ConfiguracaoGlobal.getInstancia().getConfiguracao();
+    }
+            
     public ConfiguracaoSistema getConfiguracao() {
         return configuracao;
     }
