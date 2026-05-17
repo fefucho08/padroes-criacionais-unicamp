@@ -15,6 +15,12 @@ public class GeneratorFormat{
             case JSON -> {
                 return new JsonGeneratorFactory();
             }
+            case HTML -> {
+                return new HtmlGeneratorFactory();
+            }
+            case XML -> {
+                return new XmlGeneratorFactory();
+            }
             default -> throw new IllegalArgumentException("Formato de relatorio desconhecido: " + formato);
         }
     }
