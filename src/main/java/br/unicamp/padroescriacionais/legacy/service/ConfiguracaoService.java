@@ -1,0 +1,34 @@
+package br.unicamp.padroescriacionais.legacy.service;
+
+import br.unicamp.padroescriacionais.legacy.domain.ConfiguracaoGlobal;
+import br.unicamp.padroescriacionais.legacy.domain.ConfiguracaoSistema;
+
+public class ConfiguracaoService {
+
+    private ConfiguracaoSistema configuracao;
+    
+    public ConfiguracaoService() {
+    	ConfiguracaoSistema configuracaoLocal = new ConfiguracaoSistema(
+    			"Empresa XPTO Ltda.",
+                "DEV",
+                "/tmp/relatorios",
+                true
+    			);
+    	
+    	ConfiguracaoGlobal.getInstancia().setConfiguracao(configuracaoLocal);
+    	this.configuracao = ConfiguracaoGlobal.getInstancia().getConfiguracao();
+    }
+            
+    public ConfiguracaoSistema getConfiguracao() {
+        return configuracao;
+    }
+
+    public void exibirConfiguracao() {
+        System.out.println("=== Configuracao do Sistema ===");
+        System.out.println("Empresa    : " + configuracao.getNomeEmpresa());
+        System.out.println("Ambiente   : " + configuracao.getAmbiente());
+        System.out.println("Diretorio  : " + configuracao.getDiretorioExportacao());
+        System.out.println("Debug ativo: " + configuracao.isDebugAtivo());
+        System.out.println("================================");
+    }
+}
